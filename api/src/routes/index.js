@@ -1,12 +1,96 @@
-const { Router } = require('express');
+require("dotenv").config();
+const { Router } = require("express");
+const { API_KEY } = process.env;
+const axios = require("axios");
+const sequelize = require("../db.js");
+const { Videogame, Genre } = require("../db.js");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-
 
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+router.get("/videogame/:id", (req, res) => {
+  const { id } = req.params;
+  axios
+    .get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+    .then((response) => res.status(200).send(response.data))
+    .catch((error) => console.log(error));
+});
+
+router.get("/videogames", async (req, res) => {
+  const addedGames = await Videogame.findAll();
+  console.log(addedGames);
+  const { name } = req.query;
+  if (name) {
+    axios
+      .get(`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`)
+      .then((response) =>
+        // console.log(response.data.results) // me trae los datos correctamente
+        res.status(200).send(response.data.results.concat(addedGames))
+      )
+      .catch((err) => res.status(400).send(console.log(err)));
+  } else {
+    axios
+      .get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`)
+      .then((response) => res.status(200).send(response.data.results))
+      .catch((err) => res.status(400).send(console.log(err)));
+  }
+});
+
+router.get("/genres", async (req, res) => {
+  const generos = await Genre.findAll();
+  if (generos.length > 0) {
+    axios
+      // generos.map((genero) => genero.toJSON())
+      .get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+      .then((response) => res.status(200).send(response.data.results));
+  } else {
+    axios
+      .get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+      .then((response) => {
+        response.data.results.map(
+          async (genero) =>
+            await Genre.create({
+              nombre: genero.name,
+              id: genero.id,
+            })
+        );
+        res.status(200).send(response.data.results);
+      })
+      .catch((err) => res.status(400).send(console.log(err)));
+  }
+});
+
+router.post("/videogame", async (req, res) => {
+  //console.log(req.body);
+  try {
+    const {
+      nombre,
+      descripcion,
+      fechaLanzamiento,
+      rating,
+      generos,
+      plataformas,
+    } = req.body;
+    if (!nombre) {
+      res.status(400).send(cosole.log("Faltan datos necesarios"));
+    } else {
+      const videojuego = await Videogame.create({
+        nombre: nombre,
+        descripcion: descripcion,
+        fechaLanzamiento: fechaLanzamiento,
+        rating: rating,
+        generos: generos || null,
+        plataformas: plataformas || null,
+      });
+      res.status(200).send(console.log("VideoJuego creado con exito!"));
+    }
+  } catch (error) {
+    res.status(400).send(console.log(error));
+  }
+});
 
 module.exports = router;

@@ -1,0 +1,11 @@
+.contenedor-filtros {
+    display: flex;
+    justify-content: flex-end;
+    background-color:rgb(1, 1, 88);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+}
+.select {
+    margin-top: 2px;
+}

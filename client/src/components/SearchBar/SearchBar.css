@@ -1,0 +1,10 @@
+.form-container {
+    display:flex;
+}
+
+button {
+    font-size: 10px;
+    font-weight: 400;
+    padding: 0px 2px 0px 2px;
+    margin-top: 2px;
+}

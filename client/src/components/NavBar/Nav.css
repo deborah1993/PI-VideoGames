@@ -1,0 +1,21 @@
+.nav-bar {
+    background-color:rgb(1, 1, 88);
+    color: white;
+    display: flex;
+    width: auto;
+    justify-content:center;
+    font-weight: 600;
+}
+
+nav{
+    display: flex;
+}
+
+.links {
+    margin-top: 5px;
+    margin-right: 20px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: white;
+}
+

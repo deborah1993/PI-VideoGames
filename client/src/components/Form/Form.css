@@ -1,0 +1,89 @@
+.contenedor-pagina{
+    background-color: rgba(0, 45, 83, 0.808);
+    height: 100vh;
+}
+
+.contenedor-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor-resto {
+    display: block;
+    background-color:rgb(1, 1, 88);
+    color:white;
+    width: 450px;
+    height: auto;
+    position:relative;
+    margin: 20px 10px 10px 10px;
+    border-radius: 16px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-nombre {
+    padding: 20px 20px 20px 20px;
+    display: flex;
+    justify-content:flex-start;
+}
+
+.div-descripcion{
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    justify-content:flex-start;
+}
+
+.div-fl {
+    padding: 0px 5px 20px 20px;
+    display: block;
+    justify-content:flex-start;
+}
+
+.div-rating {
+    padding: 0px 20px 20px 20px;
+    display: block;
+    justify-content:flex-start;
+}
+
+.div-generos {
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+}
+
+.div-plataformas{
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    justify-content:flex-start;
+    flex-wrap: wrap;
+}
+
+.submit {
+    display: block;
+    padding: 0px 20px 20px 20px;
+    margin-left: 195px;
+    padding: 5px;
+}
+
+.input {
+    border-radius: 5px;
+    background-color: rgb(245, 245, 245);
+}
+
+.titulo {
+    font-weight: bold;
+}
+
+.rojo {
+    border-radius: 5px;
+    background-color: rgb(245, 245, 245);
+    border: red 1px solid;
+}
+
+.span-rojo {
+    display: block;
+}

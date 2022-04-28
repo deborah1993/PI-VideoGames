@@ -1,0 +1,13 @@
+.div-home {
+    width: auto;
+    height: 100vh;
+    background-image: url("../../images/AXIE-1.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+}
+
+.button-home {
+    margin-top: 215px;
+    margin-left: 25px;
+}
