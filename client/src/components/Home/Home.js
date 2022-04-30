@@ -15,14 +15,14 @@ function Home(props) {
     props.getGenres();
   }, []); // en este arreglo de dependencias pongo las props o estados qe queiro q updeteen mi componente
   //si le paso el arreglo de dependencias vacio solo se ejecuta cuando se monta el componente
-
+  console.log(props.loadedGames);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 15;
 
   //Obtener posts actuales para paginar
   const indexLastPost = currentPage * postsPerPage; // obtengo el indice del post max de mi pagina actual
   const indexFirstPost = indexLastPost - postsPerPage; //obtengo el indice del post min de mi pag actual
-  const currentPosts = props.loadedGames.slice(indexFirstPost, indexLastPost);
+  const currentPosts = props.loadedGames?.slice(indexFirstPost, indexLastPost);
 
   //console.log(currentPosts); // me trae solo los 15 posts
 

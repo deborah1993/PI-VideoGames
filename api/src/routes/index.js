@@ -22,7 +22,7 @@ router.get("/videogame/:id", (req, res) => {
 
 router.get("/videogames", async (req, res) => {
   const addedGames = await Videogame.findAll();
-  console.log(addedGames);
+  //console.log(addedGames);
   const { name } = req.query;
   if (name) {
     axios
@@ -33,10 +33,31 @@ router.get("/videogames", async (req, res) => {
       )
       .catch((err) => res.status(400).send(console.log(err)));
   } else {
-    axios
-      .get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`)
-      .then((response) => res.status(200).send(response.data.results))
-      .catch((err) => res.status(400).send(console.log(err)));
+    // https://api.rawg.io/api/games?key=df67fc3606494b4ab8e02879ed578601
+    //`https://api.rawg.io/api/games?key=${API_KEY}`;
+    let games = [];
+    var i = 0;
+    var url = `https://api.rawg.io/api/games?key=${API_KEY}`;
+
+    function fetchAxios(arg1) {
+      //caso de corte cuando i llegue a 5 xq solo necesito 100 juegos y me devuelve 20 x pagina
+      if (i === 5) {
+        //console.log(games); // me trae e arreglo con los juegos
+        return res.status(200).send(games.concat(addedGames));
+      } else if (i < 5) {
+        axios.get(arg1).then((response) => {
+          //voy agregando juegos a mi arreglo
+          games = games.concat(response.data.results);
+          // cambio mi url a next page
+          arg1 = response.data.next;
+          //aumento i
+          i++;
+          //llamo a la recursion
+          return fetchAxios(arg1);
+        });
+      }
+    }
+    return fetchAxios(url);
   }
 });
 

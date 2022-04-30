@@ -1,11 +1,17 @@
 .contenedor-filtros {
     display: flex;
     justify-content: flex-end;
-    background-color:rgb(1, 1, 88);
+    background-color:#050A30;
     color: white;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 15px;
 }
 .select {
     margin-top: 2px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+label {
+    margin-left: 5px;
 }
