@@ -30,7 +30,7 @@ export default function rootReducer(state = initialState, action) {
   if (action.type === SEARCH_GAMES) {
     return {
       ...state,
-      loadedGames: action.payload,
+      loadedGames: action.payload.slice(0, 15),
     };
   }
   if (action.type === GET_GAME_DETAIL) {
