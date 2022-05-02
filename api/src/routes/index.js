@@ -29,7 +29,7 @@ router.get("/videogames", async (req, res) => {
       .get(`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`)
       .then((response) =>
         // console.log(response.data.results) // me trae los datos correctamente
-        res.status(200).send(response.data.results.concat(addedGames))
+        res.status(200).send(addedGames.concat(response.data.results))
       )
       .catch((err) => res.status(400).send(console.log(err)));
   } else {
@@ -43,7 +43,7 @@ router.get("/videogames", async (req, res) => {
       //caso de corte cuando i llegue a 5 xq solo necesito 100 juegos y me devuelve 20 x pagina
       if (i === 5) {
         //console.log(games); // me trae e arreglo con los juegos
-        return res.status(200).send(games.concat(addedGames));
+        return res.status(200).send(addedGames.concat(games));
       } else if (i < 5) {
         axios.get(arg1).then((response) => {
           //voy agregando juegos a mi arreglo
@@ -89,22 +89,24 @@ router.post("/videogame", async (req, res) => {
   //console.log(req.body);
   try {
     const {
-      nombre,
-      descripcion,
+      background_image,
+      name,
+      description,
       fechaLanzamiento,
       rating,
-      generos,
+      genre,
       plataformas,
     } = req.body;
-    if (!nombre) {
-      res.status(400).send(cosole.log("Faltan datos necesarios"));
+    if (!name) {
+      res.status(400).send(console.log("Faltan datos necesarios"));
     } else {
       const videojuego = await Videogame.create({
-        nombre: nombre,
-        descripcion: descripcion,
+        background_image: background_image,
+        name: name,
+        description: description,
         fechaLanzamiento: fechaLanzamiento,
         rating: rating,
-        generos: generos || null,
+        genre: genre || null,
         plataformas: plataformas || null,
       });
       res.status(200).send(console.log("VideoJuego creado con exito!"));

@@ -25,6 +25,12 @@
 }
 
 .div-nombre {
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    justify-content:flex-start;
+}
+
+.div-image {
     padding: 20px 20px 20px 20px;
     display: flex;
     justify-content:flex-start;

@@ -1,6 +1,7 @@
 import {
   GET_GENRES,
   FILTER_BY_GENRE,
+  FILTER_BY_SOURCE,
   ORDER_BY,
   GET_GAME_DETAIL,
   GET_GAMES,
@@ -93,6 +94,19 @@ export default function rootReducer(state = initialState, action) {
         game.genres.some((genre) => genre.name === action.payload)
       ),
     };
+  }
+  if (action.type === FILTER_BY_SOURCE) {
+    if (action.payload === "API") {
+      return {
+        ...state,
+        loadedGames: state.loadedGames.filter((game) => game.id.length < 3),
+      };
+    } else {
+      return {
+        ...state,
+        loadedGames: state.loadedGames.filter((game) => game.id.length > 3),
+      };
+    }
   }
   if (action.type === GET_GENRES) {
     return {

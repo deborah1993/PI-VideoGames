@@ -12,11 +12,14 @@ module.exports = (sequelize) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      nombre: {
+      background_image: {
+        type: DataTypes.STRING,
+      },
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      descripcion: {
+      description: {
         type: DataTypes.STRING,
       },
       fechaLanzamiento: {
@@ -25,7 +28,7 @@ module.exports = (sequelize) => {
       rating: {
         type: DataTypes.STRING,
       },
-      generos: {
+      genres: {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
       plataformas: {

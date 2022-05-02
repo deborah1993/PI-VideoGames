@@ -10,11 +10,12 @@ export function AddGame(props) {
   }, []);
   //tengo aca todos mis inputs con sus values
   const [input, setInput] = React.useState({
-    nombre: "",
-    descripcion: "",
+    background_image: "",
+    name: "",
+    description: "",
     fechaLanzamiento: "",
     rating: "",
-    generos: [],
+    genre: [],
     plataformas: [],
   });
   // con esta funcion voy modificando mi estado a medida que escriben
@@ -29,11 +30,12 @@ export function AddGame(props) {
     e.preventDefault();
     props.addGame(input);
     setInput({
-      nombre: " ",
-      descripcion: " ",
+      background_image: " ",
+      name: " ",
+      description: " ",
       fechaLanzamiento: " ",
       rating: " ",
-      generos: [],
+      genre: [],
       plataformas: [],
     });
   }
@@ -51,7 +53,7 @@ export function AddGame(props) {
     });
     setInput({
       ...input,
-      generos: checked,
+      genre: checked,
     });
   }
 
@@ -112,23 +114,33 @@ export function AddGame(props) {
       <NavBar />
       <form className="contenedor-form" onSubmit={(e) => handleSubmit(e)}>
         <div className="contenedor-resto">
+          <div className="div-image">
+            <label className="titulo">Imagen: </label>
+            <input
+              className="input"
+              onChange={handleChange}
+              type="text"
+              value={input.background_image}
+              name="background_image"
+            ></input>
+          </div>
           <div className="div-nombre">
             <label className="titulo">Nombre: </label>
             <input
               className="input"
               type="text"
-              value={input.nombre}
+              value={input.name}
               onChange={handleChange}
-              name="nombre"
+              name="name"
             ></input>
           </div>
           <div className="div-descripcion">
             <label className="titulo">Descripcion: </label>
             <textarea
               className="input"
-              value={input.descripcion}
+              value={input.description}
               onChange={handleChange}
-              name="descripcion"
+              name="description"
             ></textarea>
           </div>
           <div className="div-fl">

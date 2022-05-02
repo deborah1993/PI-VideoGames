@@ -1,7 +1,7 @@
 import React from "react";
 import "./Filtros.css";
 import { connect } from "react-redux";
-import { orderBy, filterByGenre } from "../../actions";
+import { orderBy, filterByGenre, filterBySource } from "../../actions";
 
 function Filtros(props) {
   function genreFilter(e) {
@@ -12,6 +12,11 @@ function Filtros(props) {
   function ordenar(e) {
     let orden = e.target.value;
     props.orderBy(orden);
+  }
+
+  function sourceFilter(e) {
+    let source = e.target.value;
+    props.filterBySource(source);
   }
 
   return (
@@ -45,6 +50,18 @@ function Filtros(props) {
           ))}
         </select>
       </div>
+      <div>
+        <label>Desde</label>
+        <select
+          defaultValue="selected"
+          className="select"
+          onChange={(e) => sourceFilter(e)}
+        >
+          <option value="selected"></option>
+          <option value="API">API</option>
+          <option value="DB">DB</option>
+        </select>
+      </div>
     </div>
   );
 }
@@ -58,6 +75,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    filterBySource: (type) => dispatch(filterBySource(type)),
     filterByGenre: (genre) => dispatch(filterByGenre(genre)),
     orderBy: (type) => dispatch(orderBy(type)),
   };

@@ -7,6 +7,7 @@ export const GET_GAMES = "GET_GAMES";
 export const ADD_GAME = "ADD_GAME";
 export const SEARCH_GAMES = "SEARCH_GAMES";
 export const GET_GENRES = "GET_GENRES";
+export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE";
 
 export function getGenres() {
   return function (dispatch) {
@@ -21,6 +22,10 @@ export function getGenres() {
 
 export function filterByGenre(payload) {
   return { type: FILTER_BY_GENRE, payload };
+}
+
+export function filterBySource(payload) {
+  return { type: FILTER_BY_SOURCE, payload };
 }
 
 export function orderBy(payload) {
