@@ -12,11 +12,11 @@ export function AddGame(props) {
   const [input, setInput] = React.useState({
     background_image: "",
     name: "",
-    description: "",
+    description_raw: "",
     fechaLanzamiento: "",
     rating: "",
-    genre: [],
-    plataformas: [],
+    genres: [],
+    platforms: [],
   });
   // con esta funcion voy modificando mi estado a medida que escriben
   function handleChange(e) {
@@ -32,11 +32,11 @@ export function AddGame(props) {
     setInput({
       background_image: " ",
       name: " ",
-      description: " ",
+      description_raw: " ",
       fechaLanzamiento: " ",
       rating: " ",
-      genre: [],
-      plataformas: [],
+      genres: [],
+      platforms: [],
     });
   }
   //me traigo los inputs checkbox
@@ -47,34 +47,36 @@ export function AddGame(props) {
     let checked = [];
     checkboxes.forEach((box) => {
       if (box.checked === true) {
-        checked.push(box.value);
+        checked.push({ id: box.value, name: box.name });
       }
       return checked;
     });
     setInput({
       ...input,
-      genre: checked,
+      genres: checked,
     });
   }
 
   //En este estado tengo el valor del input Plataforma:
-  const [plataforma, setPlataforma] = React.useState("");
+  const [plataforma, setPlataforma] = React.useState({ name: "" });
   //esta funcion me setea el estado Platadorma
   function handleChangePlataforma(e) {
-    setPlataforma(e.target.value);
+    setPlataforma({ platform: { name: e.target.value } });
   }
 
   function handleChangePlataformas(e) {
-    const allPlataformas = [...input.plataformas];
-    allPlataformas[e.target.id][e.target.dataset.name] = e.target.value;
+    const arrayPlataformas = [...input.platforms];
+    arrayPlataformas[e.target.key][e.target.dataset.name] = {
+      platform: e.target.value,
+    };
   }
 
   const agregarPlataforma = () => {
     setInput({
       ...input,
-      plataformas: [...input.plataformas, plataforma],
+      platforms: [...input.platforms, plataforma],
     });
-    setPlataforma("");
+    setPlataforma({ name: " " });
   };
 
   const [errorF, setErrorF] = React.useState("");
@@ -115,7 +117,7 @@ export function AddGame(props) {
       <form className="contenedor-form" onSubmit={(e) => handleSubmit(e)}>
         <div className="contenedor-resto">
           <div className="div-image">
-            <label className="titulo">Imagen: </label>
+            <label className="titulo">URL Imagen: </label>
             <input
               className="input"
               onChange={handleChange}
@@ -140,7 +142,7 @@ export function AddGame(props) {
               className="input"
               value={input.description}
               onChange={handleChange}
-              name="description"
+              name="description_raw"
             ></textarea>
           </div>
           <div className="div-fl">
@@ -175,6 +177,7 @@ export function AddGame(props) {
                 <input
                   type="checkbox"
                   className="checkbox"
+                  name={gen.name}
                   value={gen.id}
                   onChange={handleChangeGeneros}
                 ></input>
@@ -189,8 +192,8 @@ export function AddGame(props) {
             <input
               className="input"
               type="text"
-              name="plataforma"
-              value={plataforma}
+              name="platform"
+              value={plataforma.name}
               onChange={handleChangePlataforma}
             />
             <input
@@ -198,15 +201,16 @@ export function AddGame(props) {
               value="Agregar plataforma"
               onClick={agregarPlataforma}
             />
-            {input.plataformas.map((plat, i) => (
+            {input.platforms.map((plat, i) => (
               <div key={100 + i}>
+                {console.log(plat)}
                 <label className="titulo">{`Plataforma ${i + 1}:`} </label>
                 <input
                   className="input"
                   type="text"
-                  key={-i}
+                  key={i}
                   name={`plataforma-${i}`}
-                  value={plat}
+                  value={plat.platform.name}
                   onChange={handleChangePlataformas}
                 ></input>
               </div>

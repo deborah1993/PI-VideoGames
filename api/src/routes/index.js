@@ -12,12 +12,23 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.get("/videogame/:id", (req, res) => {
+router.get("/videogame/:id", async (req, res) => {
   const { id } = req.params;
-  axios
-    .get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-    .then((response) => res.status(200).send(response.data))
-    .catch((error) => console.log(error));
+  console.log(id);
+  if (id.length < 5) {
+    axios
+      .get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+      .then((response) => res.status(200).send(response.data))
+      .catch((error) => console.log(error));
+  } else {
+    try {
+      const game = await Videogame.findByPk(id);
+      //console.log(game);
+      res.status(200).send(game);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });
 
 router.get("/videogames", async (req, res) => {
@@ -91,11 +102,11 @@ router.post("/videogame", async (req, res) => {
     const {
       background_image,
       name,
-      description,
+      description_raw,
       fechaLanzamiento,
       rating,
-      genre,
-      plataformas,
+      genres,
+      platforms,
     } = req.body;
     if (!name) {
       res.status(400).send(console.log("Faltan datos necesarios"));
@@ -103,13 +114,13 @@ router.post("/videogame", async (req, res) => {
       const videojuego = await Videogame.create({
         background_image: background_image,
         name: name,
-        description: description,
+        description_raw: description_raw,
         fechaLanzamiento: fechaLanzamiento,
         rating: rating,
-        genre: genre || null,
-        plataformas: plataformas || null,
+        genres: genres || null,
+        platforms: platforms || null,
       });
-      res.status(200).send(console.log("VideoJuego creado con exito!"));
+      res.status(200).send(console.log(videojuego));
     }
   } catch (error) {
     res.status(400).send(console.log(error));

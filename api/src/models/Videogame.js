@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
+      description_raw: {
         type: DataTypes.STRING,
       },
       fechaLanzamiento: {
@@ -29,10 +29,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
       genres: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.JSON),
       },
-      plataformas: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+      platforms: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
       },
     },
     {

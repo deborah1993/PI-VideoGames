@@ -1,3 +1,8 @@
+.background {
+  background-color:#050A30;
+  height: 100vh;
+}
+
 .contenedor-detail {
   margin: 20px 10px 10px 10px;
   display: flex;

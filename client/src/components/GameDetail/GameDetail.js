@@ -14,10 +14,10 @@ function GameDetail(props) {
   }, []);
   //este console log me muestra que me llega por props el state y la action
   //console.log(props);
-
+  console.log(props.gameDetail);
   return (
     //<h1>HOLA MUNDO</h1>
-    <div>
+    <div className="background">
       <NavBar />
       <div className="contenedor-detail">
         <div className="body-card-detail">
@@ -28,28 +28,32 @@ function GameDetail(props) {
               className="card-header-detail"
             />
           )}
-          <div className="card-body-detail">
-            <h4 className="game-name-detail">{props.gameDetail.name}</h4>
-            <p className="p-rating">{props.gameDetail.rating}</p>
-            <p className="p-description">DESCRIPCION</p>
-            <p className="p-detail">{props.gameDetail.description_raw}</p>
-          </div>
-          <div className="card-footer-detail">
-            <h5 className="generos-detail">GENEROS:</h5>
-            <ul className="ul-generos">
-              {props.gameDetail.genres?.map((genre, i) => (
-                <li key={i}>{genre.name}</li>
-              ))}
-            </ul>
-            <h5 className="plataformas-detail">PLATAFORMAS:</h5>
-            <ul className="ul-platforms">
-              {props.gameDetail.platforms?.map((plataforma, i) => (
-                <li key={i} className="li-platforms">
-                  {plataforma.platform.name}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {props.gameDetail && (
+            <div className="card-body-detail">
+              <h4 className="game-name-detail">{props.gameDetail.name}</h4>
+              <p className="p-rating">{props.gameDetail.rating}</p>
+              <p className="p-description">DESCRIPCION</p>
+              <p className="p-detail">{props.gameDetail.description_raw}</p>
+            </div>
+          )}
+          {props.gameDetail && (
+            <div className="card-footer-detail">
+              <h5 className="generos-detail">GENEROS:</h5>
+              <ul className="ul-generos">
+                {props.gameDetail.genres?.map((genre, i) => (
+                  <li key={i}>{genre.name}</li>
+                ))}
+              </ul>
+              <h5 className="plataformas-detail">PLATAFORMAS:</h5>
+              <ul className="ul-platforms">
+                {props.gameDetail.platforms?.map((plataforma, i) => (
+                  <li key={i} className="li-platforms">
+                    {plataforma.platform.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>

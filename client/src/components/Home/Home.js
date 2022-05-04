@@ -15,7 +15,7 @@ function Home(props) {
     props.getGenres();
   }, []); // en este arreglo de dependencias pongo las props o estados qe queiro q updeteen mi componente
   //si le paso el arreglo de dependencias vacio solo se ejecuta cuando se monta el componente
-  console.log(props.loadedGames);
+  //console.log(props.loadedGames);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 15;
 
