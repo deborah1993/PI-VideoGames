@@ -1,6 +1,7 @@
 .background {
   background-color:#050A30;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
 }
 
 .contenedor-detail {
@@ -90,7 +91,7 @@
   padding-inline-start: 5px;
   margin-inline-start: 0px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 10px;
 }
@@ -107,7 +108,7 @@
   list-style-type: none;
   margin-inline-start: 0px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 10px;
 }

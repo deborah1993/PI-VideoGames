@@ -14,7 +14,7 @@ function GameDetail(props) {
   }, []);
   //este console log me muestra que me llega por props el state y la action
   //console.log(props);
-  console.log(props.gameDetail);
+  //console.log(props.gameDetail);
   return (
     //<h1>HOLA MUNDO</h1>
     <div className="background">
