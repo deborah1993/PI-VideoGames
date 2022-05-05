@@ -25,19 +25,40 @@ export function AddGame(props) {
       [e.target.name]: e.target.value,
     });
   }
+
+  function validarNombre(e) {
+    setInput({
+      ...input,
+      name: e.target.value,
+    });
+    if (e.target.value.length < 2) {
+      setErrorF("El campo Nombre debe ser proporcionado");
+    } else {
+      setErrorR("");
+    }
+  }
   // con esta funcion despacho mi addGame con los valores del form
   function handleSubmit(e) {
     e.preventDefault();
-    props.addGame(input);
-    setInput({
-      background_image: " ",
-      name: " ",
-      description_raw: " ",
-      fechaLanzamiento: " ",
-      rating: " ",
-      genres: [],
-      platforms: [],
-    });
+    if (!input.name || !input.fechaLanzamiento || !input.rating) {
+      if (errorF) {
+        alert(errorF);
+      } else {
+        alert("Debe completar los campos necesarios!");
+      }
+    } else {
+      props.addGame(input);
+      setInput({
+        background_image: "",
+        name: "",
+        description_raw: "",
+        fechaLanzamiento: "",
+        rating: "",
+        genres: [],
+        platforms: [],
+      });
+      alert("¡Videojuego creado con éxito!");
+    }
   }
   //me traigo los inputs checkbox
   const checkboxes = document.querySelectorAll(".checkbox");
@@ -76,7 +97,7 @@ export function AddGame(props) {
       ...input,
       platforms: [...input.platforms, plataforma],
     });
-    setPlataforma({ name: " " });
+    setPlataforma({ name: "" });
   };
 
   const [errorF, setErrorF] = React.useState("");
@@ -104,11 +125,11 @@ export function AddGame(props) {
       setErrorR("El Rating debe ser entre 0-5");
     } else {
       setErrorR("");
+      setInput({
+        ...input,
+        rating: e.target.value,
+      });
     }
-    setInput({
-      ...input,
-      rating: e.target.value,
-    });
   }
 
   return (
@@ -120,7 +141,7 @@ export function AddGame(props) {
             <label className="titulo">URL Imagen: </label>
             <input
               className="input"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               type="text"
               value={input.background_image}
               name="background_image"
@@ -132,7 +153,7 @@ export function AddGame(props) {
               className="input"
               type="text"
               value={input.name}
-              onChange={handleChange}
+              onChange={(e) => validarNombre(e)}
               name="name"
             ></input>
           </div>
@@ -141,30 +162,26 @@ export function AddGame(props) {
             <textarea
               className="input"
               value={input.description}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               name="description_raw"
             ></textarea>
           </div>
           <div className="div-fl">
             <label className="titulo">Fecha de Lanzamiento: </label>
             <input
-              className={errorF && "rojo"}
               value={input.fechaLanzamiento}
               onChange={(e) => validarFecha(e)}
               type="text"
               name="fechaLanzamiento"
             ></input>
-            {!errorF ? null : <span className="span-rojo">{errorF}</span>}
           </div>
           <div className="div-rating">
             <label className="titulo">Rating: </label>
             <input
-              className={errorR && "rojo"}
               value={input.rating}
               onChange={(e) => validarRanting(e)}
               name="rating"
             ></input>
-            {!errorR ? null : <span className="span-rojo">{errorR}</span>}
           </div>
           {/*inputs dinamicos para agrgar generos*/}
           <div className="div-generos">
@@ -203,7 +220,6 @@ export function AddGame(props) {
             />
             {input.platforms.map((plat, i) => (
               <div key={100 + i}>
-                {console.log(plat)}
                 <label className="titulo">{`Plataforma ${i + 1}:`} </label>
                 <input
                   className="input"

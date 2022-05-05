@@ -67,7 +67,7 @@ export default function rootReducer(state = initialState, action) {
           }
         }),
       };
-    } else if (action.payload === "0-10") {
+    } else if (action.payload === "0-5") {
       return {
         ...state,
         loadedGames: state.loadedGames.slice().sort((game1, game2) => {
@@ -76,7 +76,7 @@ export default function rootReducer(state = initialState, action) {
           else return 0;
         }),
       };
-    } else if (action.payload === "10-0") {
+    } else if (action.payload === "5-0") {
       return {
         ...state,
         loadedGames: state.loadedGames.slice().sort((game1, game2) => {
@@ -96,15 +96,18 @@ export default function rootReducer(state = initialState, action) {
     };
   }
   if (action.type === FILTER_BY_SOURCE) {
+    if (action.payload === "DB") {
+      return {
+        ...state,
+        loadedGames: state.loadedGames.filter((game) => game.id.length > 9),
+      };
+    }
     if (action.payload === "API") {
       return {
         ...state,
-        loadedGames: state.loadedGames.filter((game) => game.id.length < 3),
-      };
-    } else {
-      return {
-        ...state,
-        loadedGames: state.loadedGames.filter((game) => game.id.length > 3),
+        loadedGames: state.loadedGames.filter(
+          (game) => game.id.toString().length < 9
+        ),
       };
     }
   }

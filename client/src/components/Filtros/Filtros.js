@@ -1,10 +1,16 @@
 import React from "react";
 import "./Filtros.css";
 import { connect } from "react-redux";
-import { orderBy, filterByGenre, filterBySource } from "../../actions";
+import {
+  orderBy,
+  filterByGenre,
+  filterBySource,
+  getGames,
+} from "../../actions";
 
 function Filtros(props) {
-  function genreFilter(e) {
+  async function genreFilter(e) {
+    await props.getGames();
     let genre = e.target.value;
     props.filterByGenre(genre);
   }
@@ -14,7 +20,8 @@ function Filtros(props) {
     props.orderBy(orden);
   }
 
-  function sourceFilter(e) {
+  async function sourceFilter(e) {
+    await props.getGames();
     let source = e.target.value;
     props.filterBySource(source);
   }
@@ -31,8 +38,8 @@ function Filtros(props) {
           <option value="selected"></option>
           <option value="A-Z">Alfabeticamente A-Z</option>
           <option value="Z-A">Alfabeticamente Z-A</option>
-          <option value="0-10">Ranking 0-10</option>
-          <option value="10-0">Ranking 10-0</option>
+          <option value="0-5">Ranking 0-5</option>
+          <option value="5-0">Ranking 5-0</option>
         </select>
       </div>
       <div>
@@ -62,6 +69,7 @@ function Filtros(props) {
           <option value="DB">DB</option>
         </select>
       </div>
+      {console.log(props.loadedGames)}
     </div>
   );
 }
@@ -75,9 +83,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    filterBySource: (type) => dispatch(filterBySource(type)),
+    filterBySource: (source) => dispatch(filterBySource(source)),
     filterByGenre: (genre) => dispatch(filterByGenre(genre)),
     orderBy: (type) => dispatch(orderBy(type)),
+    getGames: () => dispatch(getGames()),
   };
 }
 
